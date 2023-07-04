@@ -1,0 +1,27 @@
+[package]
+name = "exec-test"
+version = "0.1.0"
+edition = "2021"
+
+[[bench]]
+name = "bench"
+harness = false
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+bevy_tasks = "0.10.1"
+futures-executor = "0.3.28"
+glam = "0.24.1"
+polyanya = "0.4.0"
+rayon = "1.7.0"
+smolscale = "0.3.52"
+switchyard = "0.3.0"
+tokio = { version = "1.29.1", features = ["rt-multi-thread", "macros"] }
+
+[dev-dependencies]
+criterion = "0.5.1"
+
+[profile.bench]
+debug = true
+lto = "thin"
