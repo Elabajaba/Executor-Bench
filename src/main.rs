@@ -2,6 +2,8 @@ use std::sync::Arc;
 
 use exec_test::{get_mesh, Scenarios};
 
+use rand::prelude::*;
+
 // macro_rules! assert_delta {
 //     ($x:expr, $y:expr) => {
 //         let val = $x;
@@ -21,6 +23,10 @@ fn main() {
         let mut temp = Scenarios::from_file("scenarios/aurora.scen");
         scenarios.0.append(&mut temp.0);
     }
+
+    // Shuffle the pathfinding tasks for a more realistic workload of different task durations, instead of a uniform distribution of fast->slow tasks.
+    let mut rng = StdRng::seed_from_u64(0);
+    scenarios.0.shuffle(&mut rng);
 
     let count = scenarios.0.len();
     println!("count: {}", count);

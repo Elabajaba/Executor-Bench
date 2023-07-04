@@ -2,6 +2,7 @@ use std::sync::Arc;
 
 use criterion::{black_box, criterion_group, criterion_main, BatchSize, Criterion, Throughput};
 use exec_test::Scenarios;
+use rand::prelude::*;
 use switchyard::threads;
 
 pub fn polyanya(c: &mut Criterion) {
@@ -12,7 +13,11 @@ pub fn polyanya(c: &mut Criterion) {
     let mesh: Arc<polyanya::Mesh> =
         Arc::new(polyanya::PolyanyaFile::from_file("meshes/aurora-merged.mesh").into());
 
-    let scenarios = Scenarios::from_file("scenarios/aurora.scen");
+    let mut scenarios = Scenarios::from_file("scenarios/aurora.scen");
+
+    // Shuffle the pathfinding tasks so that they don't uniformly go from fast to slow.
+    let mut rng = StdRng::seed_from_u64(0);
+    scenarios.0.shuffle(&mut rng);
 
     let count = scenarios.0.len();
     println!("count: {}", count);
