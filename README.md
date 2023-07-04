@@ -1,8 +1,8 @@
-Comparison a few different rust async executors against each other to see how they handle many (relatively uniform) tasks.
+This is a comparison a few different rust async executors against each other to see how they handle many (relatively uniform) tasks.
 
-The tasks are 2990 unique pathfinding tasks using [polyanya](https://github.com/vleue/polyanya)
+The tasks are 2990 unique pathfinding tasks using [polyanya](https://github.com/vleue/polyanya).
 
-Windows 11, AMD 5900x:
+System tested on: Windows 11, AMD 5900x:
 
 | Executor                                                                     | runtime    |
 |------------------------------------------------------------------------------|------------|
@@ -12,3 +12,9 @@ Windows 11, AMD 5900x:
 | [tokio](https://github.com/tokio-rs/tokio)                                   | 300.87 ms  |
 | [rayon](https://github.com/rayon-rs/rayon)                                   | 205.48 ms  |
 | singlethreaded                                                               | 3111.5 ms  |
+
+## Instructions
+
+Run `cargo --bench` to get criterion benchmarks.
+
+`cargo run --release` is faster, but much less accurate and doesn't keep track of previous runs.
